@@ -2,6 +2,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public Weapon Weapon => weapon;
+
+    public void Init(WeaponSettings[] weaponSettings)
+    {
+        weapon.Init(weaponSettings);
+    }
+
+    public void StartGame(int weaponIndex)
+    {
+        enabled = true;
+        weapon.StartGame(weaponIndex);
+    }
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -32,6 +45,7 @@ public class PlayerController : MonoBehaviour
         firstPersonCamera.transform.localRotation = Quaternion.Euler(cameraRotation);
     }
 
+    [SerializeField] Weapon weapon;
     [SerializeField] Camera firstPersonCamera;
     [SerializeField] float maxCameraPitch;
     [SerializeField] float minCameraPitch;
@@ -39,4 +53,5 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rotationSpeed;
 
     private Vector3 cameraRotation;
+    private WeaponSettings[] weaponSettings;
 }
