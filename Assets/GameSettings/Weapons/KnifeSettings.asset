@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cc6eb62a1b3e4749bcca9dc084b8307, type: 3}
-  m_Name: RiffleSettings
+  m_Name: KnifeSettings
   m_EditorClassIdentifier: 
-  ClipSize: 8
-  ModelPrefab: {fileID: 1405485472645452383, guid: e6f769fcfc8e41444a4070c5cf8dd8b9, type: 3}
-  ProjectilePrefab: {fileID: 7015441807816761907, guid: ed877682aa3c89c4986b62142c24ed2d, type: 3}
+  ClipSize: 10
+  ModelPrefab: {fileID: 3834289278698560650, guid: 1e88410510eeab44d9ba3f589c188e56, type: 3}
+  ProjectilePrefab: {fileID: 2612316577806521897, guid: 61d6a903fc5cddd45bc886e0daf452e9, type: 3}
   ShootSound: {fileID: 8300000, guid: 0795d352fba361049b054f6e09d89435, type: 3}
   EmptyClipSound: {fileID: 8300000, guid: 0795d352fba361049b054f6e09d89435, type: 3}

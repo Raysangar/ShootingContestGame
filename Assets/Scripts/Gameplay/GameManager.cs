@@ -43,6 +43,7 @@ public class GameManager
     private IEnumerator WaitForEndGame()
     {
         yield return WaitSeconds;
+        Player.enabled = false;
         OnGameFinished(Score);
     }
 

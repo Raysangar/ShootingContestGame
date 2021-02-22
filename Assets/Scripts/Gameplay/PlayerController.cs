@@ -21,6 +21,16 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void OnEnable()
+    {
+        weapon.enabled = true;
+    }
+
+    private void OnDisable()
+    {
+        weapon.enabled = false;
+    }
+
     private void Update()
     {
         UpdateMovement();
@@ -30,10 +40,7 @@ public class PlayerController : MonoBehaviour
     private void UpdateMovement()
     {
         float movementForFrame = movementSpeed * Time.deltaTime;
-        var position = transform.localPosition;
-        position.x += Input.GetAxis("Horizontal") * movementForFrame;
-        position.z += Input.GetAxis("Vertical") * movementForFrame;
-        transform.localPosition = position;
+        transform.Translate(new Vector3(Input.GetAxis("Horizontal") * movementForFrame, 0, Input.GetAxis("Vertical") * movementForFrame));
     }
 
     private void UpdateAim()

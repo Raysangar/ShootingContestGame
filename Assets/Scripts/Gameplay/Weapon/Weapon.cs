@@ -29,7 +29,10 @@ public class Weapon : MonoBehaviour
     {
         models = new WeaponModel[settings.Length];
         for (int i = 0; i < settings.Length; ++i)
-            models[i] = Instantiate(settings[i].ModelPrefab, transform.position, transform.rotation, visualParent);
+        {
+            models[i] = Instantiate(settings[i].ModelPrefab, visualParent.position, visualParent.rotation, visualParent);
+            models[i].gameObject.SetActive(false);
+        }
     }
 
     private void ShowCurrentModel()
