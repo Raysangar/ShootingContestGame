@@ -16,4 +16,4 @@ MonoBehaviour:
   ModelPrefab: {fileID: 1405485472645452383, guid: e6f769fcfc8e41444a4070c5cf8dd8b9, type: 3}
   ProjectilePrefab: {fileID: 7015441807816761907, guid: ed877682aa3c89c4986b62142c24ed2d, type: 3}
   ShootSound: {fileID: 8300000, guid: 0795d352fba361049b054f6e09d89435, type: 3}
-  EmptyClipSound: {fileID: 8300000, guid: 0795d352fba361049b054f6e09d89435, type: 3}
+  EmptyClipSound: {fileID: 8300000, guid: 85a0b60db80e7724a854b299c68dad2e, type: 3}

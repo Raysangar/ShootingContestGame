@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class ProjectileBase : MonoBehaviour
 {
-    public static System.Action<ProjectileBase> OnDisappear;
+    public System.Action<ProjectileBase> OnDisappear;
 
     protected virtual void Update()
     {

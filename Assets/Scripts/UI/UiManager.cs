@@ -4,10 +4,11 @@ using UnityEngine.EventSystems;
 
 public class UiManager : MonoBehaviour
 {
-    public void Init(GameManager gameManager, WeaponSettings[] weaponSettings)
+    public void Init(GameManager gameManager, WeaponSettings[] weaponSettings, LeaderboardManager leaderboardManager)
     {
         this.weaponSettings = weaponSettings;
         this.gameManager = gameManager;
+        this.leaderboardManager = leaderboardManager;
         gameManager.OnGameFinished += OnGameFinished;
         gameManager.OnScoreChanged += OnScoreChanged;
         gameManager.Player.Weapon.OnShoot += OnWeaponShoot;
@@ -42,6 +43,8 @@ public class UiManager : MonoBehaviour
         hudParent.SetActive(true);
         projectilesLeft.text = weaponSettings[weaponIndex].ClipSize.ToString();
         gameManager.StartGame(weaponIndex);
+        UpdateLeaderBoard();
+        AudioManager.Instance.PlayClickAudio();
     }
 
     private void OnScoreChanged(int score)
@@ -65,11 +68,19 @@ public class UiManager : MonoBehaviour
     private void OnPlayAgainButtonClicked()
     {
         ShowWeaponSelectionMenu();
+        AudioManager.Instance.PlayClickAudio();
     }
 
     private void OnQuitButtonClicked()
     {
         Application.Quit();
+    }
+
+    private void UpdateLeaderBoard()
+    {
+        leaderboard.text = "HIGHEST SCORES";
+        for (int i = 0; i < leaderboardManager.Leaderboard.Count; ++i)
+            leaderboard.text += "\n" + (i + 1) + ". " + leaderboardManager.Leaderboard[i];
     }
 
     [Header("Selection Menu")]
@@ -88,7 +99,9 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject hudParent;
     [SerializeField] TMPro.TMP_Text projectilesLeft;
     [SerializeField] TMPro.TMP_Text currentScore;
+    [SerializeField] TMPro.TMP_Text leaderboard;
 
     private GameManager gameManager;
     private WeaponSettings[] weaponSettings;
+    private LeaderboardManager leaderboardManager;
 }

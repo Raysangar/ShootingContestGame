@@ -9,29 +9,32 @@ public class GameManager
     public System.Action<int> OnGameFinished;
     public System.Action<int> OnScoreChanged;
 
-    public GameManager(PlayerController player, Transform playerInitialPosition, MonoBehaviour mainObject)
+    public GameManager(PlayerController player, Transform playerInitialPosition, MonoBehaviour mainObject, Target[] targets)
     {
         Player = player;
         this.mainObject = mainObject;
         this.playerInitialPosition = playerInitialPosition;
+        this.targets = targets;
         player.enabled = false;
         player.transform.position = playerInitialPosition.position;
-        ProjectileBase.OnDisappear = OnProjectileDisappeared;
-        Target.OnHit = OnTargetHit;
+        player.Weapon.OnOutOfProjectiles += OnPlayerOutOfProjectiles;
+        foreach (var target in targets)
+            target.OnHit += OnTargetHit;
     }
 
     public void StartGame(int weaponIndex)
     {
         Player.transform.position = playerInitialPosition.position;
         Player.StartGame(weaponIndex);
+        foreach (var target in targets)
+            target.ResetParent();
         Score = 0;
         OnScoreChanged(Score);
     }
 
-    private void OnProjectileDisappeared(ProjectileBase projectile)
+    private void OnPlayerOutOfProjectiles()
     {
-        if (Player.Weapon.ProjectilesLeft == 0)
-            mainObject.StartCoroutine(WaitForEndGame());
+        mainObject.StartCoroutine(WaitForEndGame());
     }
 
     private void OnTargetHit(int score)
@@ -49,6 +52,6 @@ public class GameManager
 
     private readonly Transform playerInitialPosition;
     private readonly MonoBehaviour mainObject;
-
-    private readonly WaitForSeconds WaitSeconds = new WaitForSeconds(2);
+    private readonly Target[] targets;
+    private readonly WaitForSeconds WaitSeconds = new WaitForSeconds(1);
 }

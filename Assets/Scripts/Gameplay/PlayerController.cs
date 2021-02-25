@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public System.Action OnOutOfProjectiles;
+
     public Weapon Weapon => weapon;
 
     public void Init(WeaponSettings[] weaponSettings)

@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public static System.Action<int> OnHit;
+    public System.Action<int> OnHit;
+
+    public void ResetParent()
+    {
+        targetParent.SetActive(true);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -13,6 +18,5 @@ public class Target : MonoBehaviour
 
     [SerializeField] GameObject targetParent;
     [SerializeField] AudioClip onShootSound;
-    [SerializeField] Transform pointsFeedbackPosition;
     [SerializeField] int pointsValue;
 }
