@@ -17,19 +17,17 @@ public class PlayerController : MonoBehaviour
         weapon.StartGame(weaponIndex);
     }
 
-    private void Start()
+    private void OnEnable()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
-
-    private void OnEnable()
-    {
         weapon.enabled = true;
     }
 
     private void OnDisable()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         weapon.enabled = false;
     }
 

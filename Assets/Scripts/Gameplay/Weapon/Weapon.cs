@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Weapon : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Weapon : MonoBehaviour
     public void Init(WeaponSettings[] settings)
     {
         this.settings = settings;
+        aliveProjectiles = new List<ProjectileBase>();
         SetupModels();
     }
 
@@ -47,10 +49,10 @@ public class Weapon : MonoBehaviour
         if (ProjectilesLeft > 0)
         {
             --ProjectilesLeft;
-            ++aliveProjectiles;
             var projectile = Instantiate(CurrentSettings.ProjectilePrefab, CurrentModel.ProjectileInitialPosition.position,
                 CurrentModel.ProjectileInitialPosition.rotation);
             projectile.OnDisappear += OnProjectileDisappeared;
+            aliveProjectiles.Add(projectile);
             AudioSource.PlayClipAtPoint(CurrentSettings.ShootSound, transform.position);
             OnShoot(this);
         }
@@ -62,8 +64,8 @@ public class Weapon : MonoBehaviour
 
     private void OnProjectileDisappeared(ProjectileBase projectile)
     {
-        --aliveProjectiles;
-        if (aliveProjectiles == 0 && ProjectilesLeft == 0)
+        aliveProjectiles.Remove(projectile);
+        if (aliveProjectiles.Count == 0 && ProjectilesLeft == 0)
             OnOutOfProjectiles();
     }
 
@@ -73,7 +75,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] Transform visualParent;
 
     private int currentSettingsIndex;
-    private int aliveProjectiles;
+    private List<ProjectileBase> aliveProjectiles;
     private WeaponSettings[] settings;
     private WeaponModel[] models;
 }
